@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <script>window.alert("Добрый день!\nПрошу проверить мою работу в среду. Совсем не успела.\nОгромное спасибо!");</script>
+    <script>window.alert("Добрый день еще раз.\nОгромное спасибо, что дали время доделать работу!\nК сожалению, я делала видео-плеер, а засабмитила в эко-саунд.\nОчень прошу прощения за неудобства. Проверьте, пожалуйста, плеер");</script>
     <link rel="icon" href="assets/icon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +20,12 @@
     <section class="video">
         <button class="play-logo"></button>
         <video class="video-bg" src="assets/video.mp4" poster="assets/video-bg.jpg"></video>
-        <div class="poster"></div>
-        <section class="controls">
+        <div class="controls">
             <button class="icon"></button>
-            <progress type="range" class="play-line" id="progress" name="progress" min="0" max="100" value="0" step="1" style="width: 55%;"></progress>
+            <input type="range" class="play-line" id="progress" name="progress" min="0" max="100" value="0" step="1" style="width: 60%;">
             <button class="mute"></button>
-            <input type="range" id="volume" name="volume" class="play-line" min="0" max="100" value="0" step="1" style="width: 15%;">
-        </section>
+            <input type="range" id="volume" name="volume" class="play-line2" min="0" max="100" value="50" step="1" style="width: 15%;">
+        </div>
     </section>
 </main>
 <footer class="footer">
