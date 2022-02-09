@@ -1,7 +1,26 @@
+const video = document.querySelector('video');
+const icon = document.querySelector('.icon');
+const playLogo = document.querySelector('.play-logo');
+playLogo.addEventListener('click', togglePlay);
+icon.addEventListener('click', togglePlay);
 
 
+function togglePlay(){
+    if (video.paused){
+        video.play();
+        icon.classList.add('pause');
+        playLogo.style.zIndex = -1;
+    }else{
+        video.pause();
+        icon.classList.remove('pause');
+        playLogo.style.zIndex = 10;
+    }
+}
 
-
+function setVolume() {
+    video.volume = 0.5;
+};
+video.addEventListener('loadeddata', setVolume);
 
 let volume = document.querySelector('#volume');
 volume.addEventListener('mousemove', function(){
@@ -10,36 +29,47 @@ volume.addEventListener('mousemove', function(){
     volume.style.background = color;
 })
 
-const icon = document.querySelector('.icon');
-
-let playStatus = 'playing';
-icon.addEventListener('click', changePlayStatus);
-
-function changePlayStatus () {
-    icon.classList.toggle('pause');
-    playStatus = icon.classList.contains('pause') ? 'playing' : 'paused';
-    if (playStatus === 'playing') {document.querySelector('.play-logo').style.zIndex = -1;}else{document.querySelector('.play-logo').style.zIndex = 10;}
-    togglePlay();
-}
-
-function togglePlay(){
-    if (video.paused){
-        video.play();
-    }else{
-        video.pause();
+const muteBtn = document.querySelector('.mute');
+function updateVolume(){
+    video.muted = !video.muted;
+    if (video.muted) {
+        muteBtn.classList.add('volume-off');
+    } else {
+        muteBtn.classList.remove('volume-off');
     }
-}
+};
+muteBtn.addEventListener('click', updateVolume);
 
 
-
-
-
-
-
-
-const player = document.querySelector('.video');
-const video = document.querySelector('.video-bg');
-const ranges = player.querySelectorAll('.play-line');
-const playLogo = document.querySelector('.play-logo');
 const controls = document.querySelector('.controls');
-const mute = document.querySelector('.mute');
+volume.addEventListener('click', e => {
+  const barWidth = window.getComputedStyle(volume).width;
+  const newVolume = e.offsetX / parseInt(barWidth);
+  video.volume = newVolume;
+  controls.querySelector('#volume').style.width = newVolume * 100;
+}, false);
+
+const progress = document.querySelector('.play-line');
+
+progress.addEventListener("change", function() {
+    //Calculate new time
+    var newTime = video.duration * (progress.value / 100);
+
+    video.currentTime = newTime;
+});
+
+//As video progresses, seekBar moves forward
+video.addEventListener("timeupdate", function() {
+    var value = (100 / video.duration) * video.currentTime;
+    progress.value = value;
+    progress.style.background = `linear-gradient(90deg, #bdae82 ${value}%, #c8c8c8 ${value}%)`;
+});
+
+
+
+
+
+
+
+
+
